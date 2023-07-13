@@ -35,7 +35,7 @@ public class ExpressionTree {
         if (root.value instanceof Action rootAction && node.value instanceof Action nodeAction) {
             int compareResult = Integer.compare(rootAction.getActionPriority(), nodeAction.getActionPriority());
 
-            if (compareResult < 0) {
+            if (compareResult <= 0) {
                 node.left = root;
                 return node;
             }
@@ -44,15 +44,13 @@ public class ExpressionTree {
             return root;
         }
 
-        if (root.value instanceof Number && node.value instanceof Action){
+        if (root.value instanceof Number){
             node.left = root;
             return node;
         }
 
         if (root.right == null)
             root.right = node;
-        else if (root.left == null)
-            root.left = node;
         else if (root.right.value instanceof Action)
             root.right = put(root.right, node);
         else
